@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import './expertise.css';
 
@@ -21,7 +21,20 @@ function ExpertiseReveal({ children, className, delay = 0 }: { children: ReactNo
 }
 
 export default function ExpertiseSection() {
-  return <section id="experience" aria-labelledby="expertise-title" className="expertise relative scroll-mt-0 rounded-t-[40px] bg-white px-5 py-20 text-[#0C0C0C] sm:rounded-t-[50px] sm:px-8 sm:py-24 md:rounded-t-[60px] md:px-10 md:py-32">
+  const [mobile,setMobile]=useState(()=>window.matchMedia('(max-width: 767px)').matches);
+  const reduce=useReducedMotion();
+  useEffect(()=>{
+    const q=window.matchMedia('(max-width: 767px)');
+    const update=()=>setMobile(q.matches);
+    q.addEventListener('change',update);
+    return()=>q.removeEventListener('change',update);
+  },[]);
+  return <motion.section id="experience" aria-labelledby="expertise-title"
+    initial={mobile&&!reduce?{y:40,borderTopLeftRadius:90,borderTopRightRadius:90}:false}
+    whileInView={mobile&&!reduce?{y:0,borderTopLeftRadius:40,borderTopRightRadius:40}:undefined}
+    viewport={{once:true,amount:.01}}
+    transition={{duration:.85,ease:[.22,1,.36,1]}}
+    className="expertise relative scroll-mt-0 rounded-t-[40px] bg-white px-5 py-20 text-[#0C0C0C] sm:rounded-t-[50px] sm:px-8 sm:py-24 md:rounded-t-[60px] md:px-10 md:py-32">
     <ExpertiseReveal className="expertise__heading">
       <h2 id="expertise-title" className="text-center text-[clamp(3rem,12vw,160px)] font-black uppercase leading-none tracking-[-.015em]">EXPERTISE</h2>
       <p className="expertise__caption">WHAT I DO &amp; WHERE I'VE BEEN</p>
@@ -61,5 +74,5 @@ export default function ExpertiseSection() {
         <p>持续进行个人内容创作，探索音乐内容、短视频与美食自媒体等不同表达方向。</p>
       </ExpertiseReveal>
     </div>
-  </section>;
+  </motion.section>;
 }

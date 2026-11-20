@@ -30,3 +30,7 @@
 @media(max-width:900px){.expertise__capability{grid-template-columns:2.5rem minmax(0,1fr);gap:.9rem 1.25rem}.expertise__capability>div{grid-column:2}.expertise__career-row{grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:.5rem 1.5rem}.expertise__career-row p{grid-column:2}.expertise__independent{grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr)}.expertise__independent p{grid-column:2;margin-top:-.5rem}}
 @media(max-width:560px){.expertise__heading{margin-bottom:3.5rem}.expertise__caption{font-size:.66rem}.expertise__subhead{display:block}.expertise__subhead p{margin-top:.7rem}.expertise__capability{padding:1.8rem 0;column-gap:.8rem;grid-template-columns:2rem minmax(0,1fr)}.expertise__number{font-size:1.05rem}.expertise__capability h4{font-size:1.65rem}.expertise__capability h5{font-size:1rem}.expertise__career-row{display:block;padding:1.35rem 0}.expertise__career-row h4{margin-top:.5rem}.expertise__career-row p{margin-top:.35rem}.expertise__independent{display:block;margin-top:2.5rem}.expertise__independent>h4{margin-top:.5rem}.expertise__independent p{margin-top:1rem}}
 @media(prefers-reduced-motion:reduce){.expertise__capability h4{transform:none!important;transition:none}.expertise__capabilities>li{transition:none}}
+
+/* WorkBuddy: Expertise 段外层垫色。桌面保持原样（黑），手机端改浅灰以衔接 About 段、消除白色圆角外侧的黑三角 */
+.expertise-stage{background:#0C0C0C}
+@media(max-width:767px){.expertise-stage{background:#f3f3f0}}

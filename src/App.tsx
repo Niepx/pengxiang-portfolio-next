@@ -397,4 +397,4 @@ function AboutSkillsScene(){
 
 function ContactFooter(){return <ContactSection/>;}
 
-export default function App(){return <main className="bg-[#0C0C0C]"><HeroSection/><AboutSkillsScene/><ExpertiseSection/><ProjectsSection footer={<ContactFooter/>}/></main>}
+export default function App(){return <main className="bg-[#0C0C0C]"><HeroSection/><AboutSkillsScene/><div className="expertise-stage"><ExpertiseSection/></div><ProjectsSection footer={<ContactFooter/>}/></main>}
