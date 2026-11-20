@@ -49,3 +49,14 @@
  .robot-product-mobile__copy p{margin-top:8px;color:#aebcc5;font-size:.88rem;line-height:1.65}
  .robot-product-mobile button:focus-visible{outline:2px solid #e1e9ed;outline-offset:3px}
 }
+
+/* WorkBuddy 2026-11-21: 手机端 Content System 素材跟随滚动显示。
+   原手机端把图容器改成 relative，导致图只出现一次就滚走、看不到随步骤切换。
+   这里让它在滚动容器内 sticky 固定，步骤往下滚时素材持续可见并切换。
+   桌面端不受影响（本规则仅在 max-width:700px 生效）。 */
+@media(max-width:700px){
+ .case-overlay .robot-case .robot-system .robot-system__layout .robot-system__sticky{position:sticky;top:0;z-index:20;background:#0c0c0c;padding:52px 0 8px;margin:0}
+ .case-overlay .robot-case .robot-system .robot-system__layout .robot-system__sticky>div{height:22svh;min-height:150px}
+ .case-overlay .robot-case .robot-system .robot-system__sticky>h3,.case-overlay .robot-case .robot-system .robot-system__sticky>span{display:none}
+ .case-overlay .robot-case .robot-system .robot-system__stages article{min-height:50svh}
+}
