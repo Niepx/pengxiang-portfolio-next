@@ -41,6 +41,7 @@
 | 2026-11-21 | WorkBuddy | `8f8d6ac` | 部署 workflow 加缓存清理、改用 vite build |
 | 2026-11-21 | WorkBuddy | `aa11eda` | **电脑端加载优化**：Hero 11MB 交互视频由首屏预加载改为首次真实交互（鼠标移动/滚动）才加载，首屏只保留 223KB poster；移动端不受影响 |
 | 2026-11-21 | WorkBuddy | `3e3dbb5` | 新增本变更记录文档（认证方式/部署说明/变更表） |
+| 2026-11-21 | WorkBuddy | `2680e5b` | 手机端 AI ROBOT 项目 Content System 素材随滚动固定显示：手机端把图容器改回 sticky 固定（top:0，22svh），滚动时素材持续可见并随步骤切换；桌面端不受影响 |
 
 ## 五、待办 / 遗留
 
