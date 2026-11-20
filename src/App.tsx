@@ -49,6 +49,19 @@ function InteractiveCharacter(){
   const scrollTimer=useRef<number>();
   const animationFrame=useRef<number>();
   const [interactive]=useState(()=>window.innerWidth>=768&&window.matchMedia('(hover:hover) and (pointer:fine)').matches&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  // WorkBuddy (desktop perf): the gaze video is ~11MB and was downloaded on first
+  // paint via preload="metadata" even though the poster is what shows initially.
+  // Defer mounting its src until the first real interaction, so the hero loads
+  // with just the lightweight poster. The seek/render chain below listens for
+  // loadedmetadata, which fires once the deferred src is attached — interaction
+  // behaviour is unchanged, only its start is delayed by the download.
+  const [videoSrc,setVideoSrc]=useState<string|undefined>(undefined);
+  const videoRequested=useRef(false);
+  const ensureVideo=()=>{
+    if(!interactive||videoRequested.current)return;
+    videoRequested.current=true;
+    setVideoSrc(publicAsset('assets/joji-ip-expression-v2.mp4'));
+  };
   const [ready,setReady]=useState(false);
   const [direction,setDirection]=useState('front');
 
@@ -144,6 +157,7 @@ function InteractiveCharacter(){
       // Browsers can dispatch a synthetic mousemove as the page appears. Keep
       // the opening smile until the pointer has actually moved.
       if(!previous||Math.hypot(event.clientX-previous.x,event.clientY-previous.y)<2)return;
+      ensureVideo();
       const x=event.clientX-window.innerWidth/2,y=event.clientY-window.innerHeight/2;
       if(pointerHitsCharacter(event.clientX,event.clientY))return reset();
       // Extend the active field into the lower half of the hero. Lower pointer
@@ -171,11 +185,13 @@ function InteractiveCharacter(){
       // Wheel fires before layout moves, so lock out the synthetic mousemove
       // caused by scrolling and continue from the current gaze without a
       // one-frame detour through the front pose.
+      ensureVideo();
       if(event.deltaY>0){beginDownScroll();return}
       if(!scrolling.current&&event.deltaY<0){scrolling.current=true;reset()}
       finishScrollLater();
     };
     const scroll=()=>{
+      ensureVideo();
       const nextScrollY=window.scrollY,scrollDelta=nextScrollY-lastScrollY;
       lastScrollY=nextScrollY;
       if(scrollDelta>0){beginDownScroll();return}
@@ -217,7 +233,7 @@ function InteractiveCharacter(){
   return <div ref={hostRef} data-direction={direction} className="hero-character relative aspect-[5/6] w-full" role="img" aria-label={`Joji IP character looking ${direction}`}>
     <img src={publicAsset("assets/hero-character-poster.webp")} width="480" height="576" alt="" fetchPriority="high" className="absolute inset-0 h-full w-full object-contain" style={{opacity:ready?0:1}} />
     <canvas ref={canvasRef} width="480" height="576" className="relative h-full w-full select-none object-contain" style={{opacity:ready?1:0}}/>
-    <video ref={videoRef} src={interactive?publicAsset('assets/joji-ip-expression-v2.mp4'):undefined} muted playsInline preload="metadata" className="hidden" aria-hidden="true"/>
+    <video ref={videoRef} src={videoSrc} muted playsInline preload="metadata" className="hidden" aria-hidden="true"/>
   </div>
 }
 
