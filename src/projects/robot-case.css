@@ -35,7 +35,7 @@
  .robot-product .robot-heading>span{margin-bottom:12px}
  .robot-product .robot-heading>p{margin-top:10px;font-size:1.2rem}
  .robot-product-mobile{margin-top:24px}
- .robot-product-mobile__visual{height:clamp(150px,29svh,250px);overflow:hidden;border-radius:16px;background:#151a1e}
+ .robot-product-mobile__visual{height:clamp(150px,29svh,250px);overflow:hidden;border-radius:16px;background:#1d1e20}
  .robot-product-mobile__visual .project-media{height:100%;border-radius:0}
  .robot-product-mobile__visual .project-media img{object-fit:contain;transform:none}
  .robot-product-mobile__visual .project-media__meta,.robot-product-mobile__visual .project-media__shade{display:none}
